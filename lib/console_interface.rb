@@ -1,5 +1,7 @@
+require "colorize"
+
 class ConsoleInterface
-  fig_files = File.join(__dir__, "data", "figures", "*.txt")
+  fig_files = File.join(__dir__, "..", "data", "figures", "*.txt")
   FIGURES = Dir[fig_files].sort.map { |file_name| File.read(file_name) }
 
   def initialize(game)
@@ -7,12 +9,10 @@ class ConsoleInterface
   end
 
   def print_out
-    puts <<~STATE
-      Слово: #{word_to_show}
-      #{figure}
-      Ошибки (#{@game.errors_made}): #{errors_to_show}
-      У вас осталось ошибок: #{@game.errors_allowed}
-    STATE
+    puts "Слово: #{word_to_show}".colorize(:blue)
+    puts figure.colorize(:yellow)
+    puts "Ошибки (#{@game.errors_made}): #{errors_to_show}".colorize(:red)
+    puts "У вас осталось ошибок: #{@game.errors_allowed}".colorize(:cyan)
 
     if @game.won?
       puts "Поздравляем, вы выиграли!"
