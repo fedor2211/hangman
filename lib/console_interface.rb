@@ -1,8 +1,8 @@
 require "colorize"
 
 class ConsoleInterface
-  fig_files = File.join(__dir__, "..", "data", "figures", "*.txt")
-  FIGURES = Dir[fig_files].sort.map { |file_name| File.read(file_name) }
+  FIG_FILES = File.join(__dir__, "..", "data", "figures", "*.txt")
+  FIGURES = Dir[FIG_FILES].sort.map { |file_name| File.read(file_name) }
 
   def initialize(game)
     @game = game
@@ -26,9 +26,9 @@ class ConsoleInterface
   end
 
   def word_to_show
-    @game .letters_to_guess
-          .map { |letter| letter.nil? ? "__" : letter }
-          .join(" ")
+    @game.letters_to_guess
+         .map { |letter| letter || "__" }
+         .join(" ")
   end
 
   def errors_to_show
